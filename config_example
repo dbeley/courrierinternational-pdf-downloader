@@ -1,0 +1,3 @@
+# Retrieve your cookie from your browser webconsole, then rename this file "config"
+[COOKIE]
+"KEY"="VALUE"
