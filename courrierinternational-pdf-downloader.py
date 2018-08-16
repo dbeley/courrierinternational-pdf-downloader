@@ -37,12 +37,15 @@ def extract_pdf_in_url(url):
     mag_soup = BeautifulSoup(mag_requests, features="lxml")
     for d in mag_soup.find_all("div", class_="issue-offers"):
         for a in d.find_all("a", class_="issue-download", href=True):
-            print("PDF trouvé")
-            url_pdf = a['href'].split("&url=", 1)[1]
-            print(url_pdf)
-            mag_name = url_pdf.split("magazine/", 1)[1]
-            filename = "Exports/{0}/{1}".format(str(year), str(mag_name))
-            save_pdf(url_pdf, filename)
+            if a['href'].endswith('.pdf'):
+                print("PDF trouvé")
+                url_pdf = a['href'].split("&url=", 1)[1]
+                print(url_pdf)
+                mag_name = url_pdf.split("magazine/", 1)[1]
+                filename = "Exports/{0}/{1}".format(str(year), str(mag_name))
+                save_pdf(url_pdf, filename)
+            else:
+                print("Lien invalide")
 
 
 def save_pdf(url, filename):
@@ -60,7 +63,7 @@ def save_pdf(url, filename):
 
 
 url_base = "https://www.courrierinternational.com/magazine/"
-# year_min = 1990
+# min_year = 1990
 min_year = 2003
 max_year = 2018
 
